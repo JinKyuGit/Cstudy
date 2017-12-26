@@ -101,9 +101,71 @@ void insertQuery(MYSQL * connection, MYSQL conn){
 		printf("insert success\n");
 	}
 
-	mysql_free_result(dptr->sql_result);
 
 }
+
+//delete
+void deleteQuery(MYSQL * connection,MYSQL conn){
+	
+	while(getchar()!='\n');
+
+	DB db;
+	DB * dptr=&db;
+	
+	char id[30];
+	char query[255];
+
+	printf("삭제할 아이디 : ");
+	fgets(id, sizeof(id), stdin);
+	removeEnter(id);
+
+	sprintf(query, "delete from user where id='%s'", id);	
+	dptr->query_stat=mysql_query(connection, query);
+	
+	if(dptr->query_stat!=0){
+		fprintf(stderr, "query error : %s\n", mysql_error(&conn));
+		return;
+	}else {
+		printf("delete success\n");
+	}
+
+
+
+}
+
+//update - passwd and name
+void updateQuery(MYSQL * connection, MYSQL conn){
+	while(getchar()!='\n');
+
+	DB db;
+	DB * dptr=&db;
+	USER user;
+	USER * uptr=&user;
+
+	char query[255];
+
+	printf("수정할 정보의 아이디 : ");
+	fgets(uptr->id, sizeof(uptr->id), stdin);
+	removeEnter(uptr->id);
+	printf("수정할 비밀번호 : ");
+	fgets(uptr->passwd, sizeof(uptr->passwd), stdin);
+	removeEnter(uptr->passwd);
+	printf("수정할 이름 : ");
+	fgets(uptr->name, sizeof(uptr->name), stdin);
+	removeEnter(uptr->name);
+
+	sprintf(query, "update user set passwd='%s', name='%s' where id='%s'",
+			uptr->passwd, uptr->name, uptr->id);
+	
+	dptr->query_stat=mysql_query(connection, query);
+	
+	if(dptr->query_stat!=0){
+		fprintf(stderr, "query error : %s\n", mysql_error(&conn));
+	}else {
+		printf("update success\n");
+	}
+}
+
 
 int main(){
 
@@ -121,17 +183,21 @@ int main(){
 		//방법을 찾아볼것.
 		mysql_init(&conn);
 		connection=mysql_real_connect(&conn, DB_HOST,
-				DB_USER, DB_PASS, DB_NAME, 3306, (char *)NULL, 0);		if(connection == NULL){
+		DB_USER, DB_PASS, DB_NAME, 3306, (char *)NULL, 0);		
+		if(connection == NULL){
 			fprintf(stderr, "connection error : %s\n",
 				mysql_error(&conn));					
 			return 0;
-		}
-
-
+		}	
+		
 		if(choice==1){
 			selectQuery(connection, conn);
 		}else if(choice==2){
 			insertQuery(connection, conn);
+		}else if(choice==3){
+			updateQuery(connection, conn);
+		}else if(choice==4){
+			deleteQuery(connection, conn);
 		}
 			mysql_close(connection);
 			//연결해제
