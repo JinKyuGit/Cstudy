@@ -1,5 +1,7 @@
 //단순 연결리스트 기반의 Queue 구현
 
+#ifndef __QUEUE2_H__
+#define __QUEUE2_H__
 
 typedef int Data;
 
@@ -27,3 +29,5 @@ void EnQueue(Queue * queue, Data data);
 Data DeQueue(Queue * queue);
 
 Data Peek(Queue * queue);
+
+#endif
