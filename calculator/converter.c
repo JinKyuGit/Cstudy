@@ -82,6 +82,8 @@ void Convert(char exp[]){
 				while(IsEmpty(&stack)){
 					convExp[idx++]=SPop(&stack);
 				}
+				//다 비우고 나서 새로운 기호 저장
+				SPush(&stack, exp[i]);
 			}else {
 				SPush(&stack, exp[i]);
 			}
