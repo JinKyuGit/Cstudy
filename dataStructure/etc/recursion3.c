@@ -17,9 +17,9 @@ void binarySearch(int arr[], int find, int start, int end){
 		printf("성공\n");
 		return;
 	}else if(find<arr[mid]){
-		binarySearch(arr, find, start, end-1);
+		binarySearch(arr, find, start, mid-1);
 	}else if(find>arr[mid]){
-		binarySearch(arr, find, start+1, end);
+		binarySearch(arr, find, mid+1, end);
 		}
 
 }
