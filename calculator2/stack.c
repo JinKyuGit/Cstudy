@@ -128,13 +128,18 @@ char * Converter(char * infix){
 					SPush(stack, infix[i]);
 				}else {
 					temp=SPeek(stack);
+					//기존 스택에 있던 연산자의 우선순위가 
+					//더 높은 경우 > 스택 비움.(연산자 뺌)
 					if(GetPriority(temp, infix[i]) == 2 ||
 							GetPriority(temp, infix[i]) == 0){
 						while(IsEmpty(stack)){
 							postfix[idx++]=SPop(stack);
 						}
 						postfix[idx++]=' ';
+						//중요. 새 연산자를 저장해야함.
 						SPush(stack, infix[i]);
+						//기존 스택 연산자의 우선순위가 낮은경우
+						//스택에 계속 저장.
 					}else {
 						SPush(stack, infix[i]);
 					}
@@ -171,25 +176,34 @@ int Calculate(char * postfix){
 	int idx=0;
 	char num[10]; //숫자는 최대 10자리 수라고 가정.
 	for(i=0; i<len; i++){
+		//이 부분은 변환함수와 유사.
 		if(postfix[i] >= '0' && postfix[i] <= '9'){
 			while(1){
 				if(postfix[i] < '0' || postfix[i] > '9'){
 					i--;
 					break;
 				}
-				
 				num[idx++]=postfix[i++];
 			}
 			SPush(stack, atoi(num));
 			idx=0;
 			memset(num, '\0', sizeof(10));
 		} else { //else 1
-			//공백인 경우 패스
+			//공백인 경우 continue
 			if(postfix[i] == ' '){
 				continue;
 			}
+			//먼저 나오는 값 : 중간결과값이나 두번째 피연산자
 			int num2=SPop(stack);
 			int num1=SPop(stack);
+			//스택의 성격을 고려하여
+			//값을 빼고 계산하여 다시 저장
+			//ex) 1 2 3 * +
+			//스택 : 1 2 3,  postfix * +
+			//스택 : 1, 연산 2*3, postfix +
+			//스택 1, 6 postfix +
+			//스택 1+6  >> 최종결과값.
+			//반복.
 			switch(postfix[i]){
 				case '+':
 					SPush(stack, num1+num2);
