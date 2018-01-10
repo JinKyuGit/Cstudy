@@ -27,7 +27,7 @@ int main(int argc, char * argv[]){
 	//입력받은 크기만큼 배열 생성.
 	int n=atoi(argv[1]);
 	int maxLen=strlen(argv[1]);
-	printf("maxLen : %d\n", maxLen);
+//	printf("maxLen : %d\n", maxLen);
 //	printf("n : %d\n", n);
 	int * arr=(int *)malloc(n*sizeof(int));
 	int * arr1=(int *)malloc(n*sizeof(int));
