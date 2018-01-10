@@ -163,7 +163,7 @@ void HeapInit(Heap * heap, Comp comp){
 
 }
 
-int IsEmpty(Heap * heap){
+int HIsEmpty(Heap * heap){
 	
 	if(heap->numOfData == 0){
 		return 0;
@@ -245,3 +245,79 @@ int HDelete(Heap * heap){
 	(heap->numOfData)--;
 	return Rdata;
 }
+
+//기수 정렬을 위한 연결리스트 큐
+void QueueInit(Queue * queue){
+	
+	queue->front=NULL;
+	queue->rear=NULL;
+
+}
+
+int QIsEmpty(Queue * queue){
+
+	if(NULL == queue->front){
+		return 0;
+	}else {
+		return 1;
+	}
+}
+
+void EnQueue(Queue * queue, int data){
+	
+	Node * newNode=(Node *)malloc(sizeof(Node));
+	newNode->data=data;
+	newNode->next=NULL;
+
+	if(NULL == queue->front){
+		queue->front=newNode;
+		queue->rear=newNode;
+	}else {
+		queue->rear->next=newNode;
+		queue->rear=newNode;
+	}
+
+}
+
+int DeQueue(Queue * queue){
+	
+	Node * delNode=queue->front;
+	int Rdata=delNode->data;
+
+	queue->front=queue->front->next;
+
+	free(delNode);
+	return Rdata;
+}
+
+//기수 정렬
+void RadixSort(int arr[], int len, int maxLen){
+
+	int i, j;
+	int k=0;
+	int radix;
+	int divide=1;
+
+	Queue bucket[10];
+
+	for(i=0; i<10; i++){
+		QueueInit(&bucket[i]);
+	}
+
+	for(i=1; i<=maxLen; i++){
+		
+		for(j=0; j<len; j++){
+			radix=(arr[j]/divide) % 10;
+			EnQueue(&bucket[radix], arr[j]);
+		} 
+
+		for(j=0; j<10; j++){
+			while(QIsEmpty(&bucket[j])){
+				arr[k++]=DeQueue(&bucket[j]);
+			} //while
+		}
+		k=0;
+		divide = divide * 10;
+	} //for
+}
+

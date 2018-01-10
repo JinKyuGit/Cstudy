@@ -13,6 +13,19 @@ typedef struct _heap {
 
 } Heap;
 
+typedef struct _node {
+
+	int data;
+	struct _node * next;
+
+} Node;
+
+typedef struct _queue {
+
+	Node * front;
+	Node * rear;
+} Queue;
+
 //스왑
 void Swap(int arr[], int idx1, int idx2);
 
@@ -38,7 +51,7 @@ void QuickSort(int arr[], int left, int right);
 
 //힙 정렬
 void HeapInit(Heap * heap, Comp comp);
-int IsEmpty(Heap * heap);
+int HIsEmpty(Heap * heap);
 int GetParentIdx(int childIdx);
 int GetLChildIdx(int parentIdx);
 int GetRChildIDx(int parentIdx);
@@ -46,3 +59,9 @@ void HInsert(Heap * heap, int data);
 int GetPriority(Heap * heap, int parentIdx);
 int HDelete(Heap * heap);
 
+//기수정렬
+void QueueInit(Queue * queue);
+int QIsEmpty(Queue * queue);
+void EnQueue(Queue * queue, int data);
+int DeQueue(Queue * queue);
+void RadixSort(int arr[], int len, int MaxLen);
