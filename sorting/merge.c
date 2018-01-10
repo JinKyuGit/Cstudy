@@ -32,7 +32,7 @@ void MergeArray(int arr[], int start, int mid, int end){
 	int j; //뒤의 덩어리의 시작 index
 	int k; // 임시 배열의 시작 index
 
-	int * tempArr=(int *)malloc(sizeof(end+1));
+	int * tempArr=(int *)malloc((end+1)*sizeof(int));
 
 	i=start;
 	j=mid+1;
