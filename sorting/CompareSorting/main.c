@@ -26,6 +26,8 @@ int main(int argc, char * argv[]){
 
 	//입력받은 크기만큼 배열 생성.
 	int n=atoi(argv[1]);
+	int maxLen=strlen(argv[1]);
+	printf("maxLen : %d\n", maxLen);
 //	printf("n : %d\n", n);
 	int * arr=(int *)malloc(n*sizeof(int));
 	int * arr1=(int *)malloc(n*sizeof(int));
@@ -52,8 +54,8 @@ int main(int argc, char * argv[]){
 			arr7[i]=arr[i];
 		}
 	}
-	//기수 정렬을 위해 arr7의 맨 마지막 요소는 네자릿수 집어넣음.
-	arr7[n-1]=9999;
+	//기수 정렬을 위해 arr7의 맨 마지막 요소는 n자릿수 저장.
+	arr7[n-1]=n;
 
 	//시간 계산 변수.
 	time_t start, end;
@@ -66,7 +68,7 @@ int main(int argc, char * argv[]){
 	//정렬 성능 비교
 	printf("=== 정렬 성능 비교 프로그램 ===\n");
 	printf("입력한 배열의 갯수 : %d\n", n);
-	printf("\n--- 정렬 시작 ---\n");
+	printf("\n----- 정렬 시작 -----\n");
 
 	if(n<=100000){
 	//버블
@@ -136,11 +138,13 @@ int main(int argc, char * argv[]){
 
 	//기수정렬.
 	start=clock();
-	RadixSort(arr7, n, 4);
+	RadixSort(arr7, n, maxLen);
 	end=clock();
 	gap=(double)(end-start)/CLOCKS_PER_SEC;
 	printf("기수 정렬 : %lf초\n", gap);
 	free(arr7);
+
+	printf("----- 정렬 완료 -----\n");
 
 
 	return 0;
