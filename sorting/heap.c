@@ -152,8 +152,8 @@ int GetPriority(Heap * heap, int parentIdx){
 	}else {
 		//두 자식노드가 모두 있는 경우.
 		//두 자식 노드의 우선순위 비교.
-		if(heap->comp(GetLChildIdx(parentIdx),
-					GetRChildIdx(parentIdx)) == 1){
+		if(heap->comp(heap->arr[GetLChildIdx(parentIdx)],
+					heap->arr[GetRChildIdx(parentIdx)]) == 1){
 			return GetLChildIdx(parentIdx);
 		}else {
 			return GetRChildIdx(parentIdx);
