@@ -29,6 +29,24 @@ int main(int argc, char * argv[]){
 	int maxLen=strlen(argv[1]);
 //	printf("maxLen : %d\n", maxLen);
 //	printf("n : %d\n", n);
+	char ch;
+	//시간 계산 변수.
+	time_t start, end;
+	double gap;
+	if(n>=100000){
+		printf("10만개 이상인 경우, 오래걸릴 수 있습니다.\n");
+		printf("계속 하시겠습니까?(y/n) : ");
+		scanf("%c", &ch);
+		if(ch == 'n' || ch == 'N'){
+			printf("프로그램을 종료합니다.\n");
+			return 0;
+		}
+	}
+
+	printf("\n = 정렬 성능 비교 프로그램 =\n");
+	printf(" 입력한 배열의 갯수 : %d\n", n);
+	printf(" 배열을 생성 중입니다...\n");
+	start=clock();
 	int * arr=(int *)malloc(n*sizeof(int));
 	int * arr1=(int *)malloc(n*sizeof(int));
 	int * arr2=(int *)malloc(n*sizeof(int));
@@ -40,6 +58,7 @@ int main(int argc, char * argv[]){
 	//배열에 랜덤값 넣기.
 	srand((int)time(NULL));
 	int i;
+	printf(" 배열에 랜덤값을 넣는 중입니다.\n");
 	for(i=0; i<n; i++){
 		arr[i]=(rand()% 9999)+1;
 		arr1[i]=arr[i];
@@ -56,27 +75,20 @@ int main(int argc, char * argv[]){
 	}
 	//기수 정렬을 위해 arr7의 맨 마지막 요소는 n자릿수 저장.
 	arr7[n-1]=n;
-
-	//시간 계산 변수.
-	time_t start, end;
-	double gap;
-
-	start=clock();
 	end=clock();
-	gap=(double)(end-start)/(double)1000;
+	gap=(double)(end-start)/CLOCKS_PER_SEC;
+	printf(" 배열 생성에 걸린시간 : %lf초\n", gap);
+	
 
 	//정렬 성능 비교
-	printf("=== 정렬 성능 비교 프로그램 ===\n");
-	printf("입력한 배열의 갯수 : %d\n", n);
-	printf("\n----- 정렬 시작 -----\n");
+	printf("\n ------ 정렬 시작 ------\n");
 
-	if(n<=100000){
 	//버블
 	start=clock();
 	BubbleSort(arr1, n);
 	end=clock();
 	gap=(double)(end-start)/CLOCKS_PER_SEC;
-	printf("버블 정렬 : %lf초\n", gap);	
+	printf(" 버블 정렬 : %lf초\n", gap);	
 	free(arr1);
 	
 	//선택
@@ -84,29 +96,22 @@ int main(int argc, char * argv[]){
 	SelectSort(arr2, n);
 	end=clock();
 	gap=(double)(end-start)/CLOCKS_PER_SEC;
-	printf("선택 정렬 : %lf초\n", gap);
+	printf(" 선택 정렬 : %lf초\n", gap);
 	free(arr2);
 	//삽입
 	start=clock();
 	InsertSort(arr3, n);	
 	end=clock();
 	gap=(double)(end-start)/CLOCKS_PER_SEC;
-	printf("삽입 정렬 : %lf초\n", gap);
+	printf(" 삽입 정렬 : %lf초 \n", gap);
 	free(arr3);	
-	}else {
-		printf("버블, 선택, 삽입정렬은 100000개 이하만 실행.\n");
-		printf("너무 오래 걸림... \n");
-		free(arr1);
-		free(arr2);
-		free(arr3);
-	}
 	
 	//병합.
 	start=clock();
 	DivideArr(arr4, 0, n-1);
 	end=clock();
 	gap=(double)(end-start)/CLOCKS_PER_SEC;
-	printf("병합 정렬 : %lf초\n", gap);
+	printf(" 병합 정렬 : %lf초\n", gap);
 	free(arr4);
 	
 	//힙
@@ -122,10 +127,9 @@ int main(int argc, char * argv[]){
 		}
 		end=clock();
 		gap=(double)(end-start)/CLOCKS_PER_SEC;
-		printf(" 힙  정렬 : %lf초\n", gap);
+		printf("  힙  정렬 : %lf초 \n", gap);
 		free(arr5);
 	}else{
-		printf("heap 정렬은 100000개 이하일때만 실행.\n");
 		free(arr5);
 	}
 	//퀵
@@ -133,7 +137,7 @@ int main(int argc, char * argv[]){
 	QuickSort(arr6, 0, n-1);
 	end=clock();
 	gap=(double)(end-start)/CLOCKS_PER_SEC;
-	printf(" 퀵  정렬 : %lf초\n", gap);
+	printf("  퀵  정렬 : %lf초 \n", gap);
 	free(arr6);
 
 	//기수정렬.
@@ -141,11 +145,13 @@ int main(int argc, char * argv[]){
 	RadixSort(arr7, n, maxLen);
 	end=clock();
 	gap=(double)(end-start)/CLOCKS_PER_SEC;
-	printf("기수 정렬 : %lf초\n", gap);
+	printf(" 기수 정렬 : %lf초 \n", gap);
 	free(arr7);
 
-	printf("----- 정렬 완료 -----\n");
-
-
+	printf(" ------ 정렬 완료 ------\n");
+	if(n>=100000){
+		printf(" 힙 정렬은 100000개 이하인 경우에 실행.\n");
+	}
+	printf("\n프로그램을 종료합니다.\n");
 	return 0;
 }
