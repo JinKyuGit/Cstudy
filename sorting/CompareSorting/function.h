@@ -48,6 +48,7 @@ void MergeArr(int arr[], int left, int mid, int right);
 //퀵 정렬
 int Partition(int arr[], int left, int right);
 void QuickSort(int arr[], int left, int right);
+int FindMiddle(int arr[], int left, int right);
 
 //힙 정렬
 void HeapInit(Heap * heap, Comp comp);

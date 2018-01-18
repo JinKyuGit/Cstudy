@@ -118,10 +118,27 @@ void MergeArr(int arr[], int left, int mid, int right){
 }
 
 //퀵 정렬
+//적절한 피벗값 탐색용 함수
+int FindMiddle(int arr[], int left, int right){
+
+	int a=left;
+	int b=(left+right)/2;
+	int c=right;
+
+	if(arr[a] > arr[b] && arr[a] < arr[c]){
+			return a;
+	}else if(arr[b] > arr[c] && arr[b] < arr[a]){
+			return b;
+	}else {
+			return c;
+	}
+
+}
 //pivot 탐색 & 정렬
 int Partition(int arr[], int left, int right){
 
 	int pivot=arr[left];
+
 	int low=left+1;
 	int high=right;
 

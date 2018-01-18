@@ -7,6 +7,7 @@ int Partition(int arr[], int left, int right);
 
 void QuickSort(int arr[], int left, int right);
 
+int FindMid(int arr[], int left, int right);
 
 ///////////
 ////////////
@@ -45,8 +46,31 @@ void Swap(int arr[], int idx1, int idx2){
 	arr[idx2]=temp;
 }
 
+//적절한 피벗값 탐색
+int FindMid(int arr[], int left, int right){
+
+	int a=left;
+	int b=(left+right)/2;
+	int c=right;
+
+	//요소 3개를 샘플로 수집해서
+	//가장 중간값의 인덱스를 리턴.
+	
+	if(arr[a] > arr[b] && arr[a] < arr[c]){
+			return a;
+	}else if(arr[b] > arr[a] && arr[b] < arr[c]){
+			return b;
+	}else {
+			return c;
+	}
+}
+
 //pivot 위치 탐색 및 정렬.
 int Partition(int arr[], int left, int right){
+
+	int pivotIdx=FindMid(arr, left, right);
+	
+	Swap(arr, left, pivotIdx);
 
 	int pivot=arr[left];
 	//우선 맨 왼쪽의 값을 피벗으로 정함.
