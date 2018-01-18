@@ -167,6 +167,8 @@ BTree * Delete(BTree ** root, Data data){
 		SetData(delNode, GetData(temp));
 		
 		//대체 노드의 자식 노드 연결.
+		//위의 코드에서 LeftSub가 NULL 이므로
+		//오른쪽 서브를 연결.
 		if(GetLeftSub(tempParent) == temp){
 			ChangeLeftSub(tempParent, GetRightSub(temp));
 		}else {	
