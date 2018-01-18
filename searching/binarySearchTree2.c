@@ -1,6 +1,6 @@
 #include"binaryTree1.h"
 #include<stdio.h>
-
+#include"binarySearchTree2.h"
 
 
 //트리 초기화
@@ -24,9 +24,9 @@ void Insert(BTree * root, Data data){
 	SetData(newNode, data);
 	
 	if(NULL != root){
+		printf("root != NULL\n");
 		//while문을 통해 새 노드가 삽입될 위치를 찾는다.
-		while(NULL != child){
-		
+		while(NULL != child){	
 			//값이 중복된 경우.
 			if(data == GetData(child)){
 				return;
@@ -52,6 +52,7 @@ void Insert(BTree * root, Data data){
 		}
 
 	} else {
+		printf("root == NULL\n");
 		root=newNode;
 	}
 	
