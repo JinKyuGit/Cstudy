@@ -29,4 +29,10 @@ typedef void (*Func)(int a);
 
 void LeftTraverse(BTree * tree, Func func);
 
+void ChangeLeftSub(BTree * main, BTree * sub);
+void ChangeRightSub(BTree * main, BTree * sub);
+
+BTree * RemoveLeftSub(BTree * tree);
+BTree * RemoveRightSub(BTree * tree);
+
 #endif

@@ -3,12 +3,13 @@
 
 #include"binaryTree1.h"
 
-void TreeInit(BTree * root);
+void TreeInit(BTree ** root);
 
 Data GetNodeData(BTree * tree);
 
-void Insert(BTree * root, Data data);
+void Insert(BTree ** root, Data data);
 
 BTree * Search(BTree * tree, Data target);
 
+BTree * Delete(BTree ** root, Data data);
 #endif

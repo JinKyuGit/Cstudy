@@ -71,5 +71,35 @@ void LeftTraverse(BTree * tree, Func func){
 	func(tree->data);
 	LeftTraverse(tree->right, func);
 	
-	free(tree);
+	//free(tree);
 }
+
+void ChangeLeftSub(BTree * main, BTree * sub){
+		main->left=sub;
+}
+void ChangeRightSub(BTree * main, BTree * sub){
+		main->right=sub;
+}
+
+BTree * RemoveLeftSub(BTree * tree){
+	
+	BTree * delNode=NULL;
+
+	if(NULL != tree){
+		delNode=tree->left;
+		tree->left=NULL;
+	}
+	return delNode;
+}
+
+BTree * RemoveRightSub(BTree * tree){
+	
+	BTree * delNode=NULL;
+
+	if(NULL != tree){
+		delNode=tree->right;
+		tree->right=NULL;
+	}
+	return delNode;
+}
+
