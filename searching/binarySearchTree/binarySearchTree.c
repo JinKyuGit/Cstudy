@@ -206,7 +206,7 @@ Tree * DeleteData(Tree ** tree, Data target){
 		}
 		//부모 노드의 자식 노드 중
 		//삭제될 노드가 있던 자리를 채움.
-		if(GetLeftSub(parent) == delNode){
+		if(delNode == GetLeftSub(parent)){
 			ChangeLeftSub(parent, temp);
 		}else {
 			ChangeRightSub(parent, temp);
@@ -214,37 +214,32 @@ Tree * DeleteData(Tree ** tree, Data target){
 	//자식노드가 2개인 경우.
 	//대체 노드의 탐색과정 필요
 	//대체 노드는 -> 오른쪽 서브트리의 가장 작은 값.
-	//이 경우 삭제될 위치의 노드의 값을
-	//대체 노드의 값으로 변경한 후, 대체노드를 삭제함.
 	} else {
-		Tree * cTemp=GetRightSub(delNode);
-		Tree * pTemp=delNode;
+		Tree * cTemp=GetRightSub(delNode); //대체노드
+		Tree * pTemp=delNode;//대체노드의 부모 노드
 		Data delData;
-		
 		//대체 값 탐색.
+		//오른쪽으로 한칸 이동 후 계속 왼쪽 이동.
 		while(NULL != GetLeftSub(cTemp)){
 			pTemp=cTemp;
 			cTemp=GetLeftSub(pTemp);
 		} //while
  		//반복문 종료 시점 - cTemp가 대체노드 가리킴.
-
+		
 		delData=GetData(delNode);
 		SetData(delNode, GetData(cTemp));
 		
-		//만약 대체할 노드가 자식노드를 가진경우
-		//(이 경우는 오른쪽 노드를 가진 경우밖에 없다.)
-		//대체할 노드의 부모의 왼쪽 또는 오른쪽에
-		//해당 자식 노드를 연결함.
-		if(NULL != GetRightSub(cTemp)){
-			if(cTemp == GetLeftSub(pTemp)){
-				ChangeLeftSub(pTemp, GetRightSub(cTemp));
-			}else {	
-				ChangeRightSub(pTemp, GetRightSub(cTemp));
-			}
+			//대체 노드가 자식노드를 가지고 있는 경우.
+		if(cTemp == GetLeftSub(pTemp)){
+			ChangeLeftSub(pTemp, GetRightSub(cTemp));
+		}else {	
+			ChangeRightSub(pTemp, GetRightSub(cTemp));
 		}
 
 		delNode=cTemp;
 		SetData(delNode, delData);
+
+		
 	} //else
 	
 	//함수 초기에 root노드를 임시 루트 노드의
