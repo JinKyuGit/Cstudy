@@ -20,7 +20,7 @@ int main(){
 	int target;	
 	int del;
 	BTreeInit(&root);
-	
+	int count=0;	
 	printf(" == 이진 탐색 트리 ==\n");
 
 	//삽입
@@ -34,10 +34,11 @@ int main(){
 		}
 
 		InsertData(&root, data);
+		count++;
 		ShowAll(root);
 	}
 
-	if(NULL == root){
+	if(count == 0){
 		printf("삽입된 데이터가 없어 프로그램을 종료합니다.\n");
 		return 0;
 	}
@@ -67,10 +68,16 @@ int main(){
 
 	//삭제
 	while(1){
+		
+		if(count == 0){
+			printf("데이터가 전부 삭제되어 프로그램을 종료합니다.\n");
+			break;
+		}
 		ShowAll(root);
 		printf("삭제할 키값(종료는 0) : ");
 		scanf("%d", &del);
 
+		
 		if(del == 0){
 			printf("프로그램을 종료합니다.\n");
 			break;
@@ -84,6 +91,7 @@ int main(){
 			printf("삭제 성공.\n");
 			printf("삭제한 데이터 : %d\n", GetData(temp));
 			free(temp);
+			count--;
 		}
 	}
 	return 0;
