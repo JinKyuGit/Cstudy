@@ -8,7 +8,7 @@ typedef struct _emp {
 
 	int empNo; //key
 	char * name;
-	struct * _emp next;
+	struct _emp * next;
 	
 }Emp;
 
@@ -49,17 +49,17 @@ Value Enroll(int empNo, char * name);
 void EmpInfo(Value value);
 
 //List fuction
-void ListInit(List * list);
-void LInsert(List * list);
+void ListInit(List * list, Comp comp);
+void LInsert(List * list, int key, char * name);
 Value LFirst(List * list);
 Value LNext(List * list);
 Value LRemove(List * list);
 
 //table function
 void TableInit(Table * table, int len, Hash hash, Comp comp);
-int TInsert(Table * table, Key key, Value value);
-int TSearch(Table * table, Key key);
-int TDelete(Table * table, Key key);
+int TInsert(Table * table, Key key, char * name);
+Value TSearch(Table * table, Key key);
+void TDelete(Table * table, Key key);
 
 
 #endif
