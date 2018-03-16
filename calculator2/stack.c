@@ -156,6 +156,7 @@ char * Converter(char * infix){
 		postfix[idx++]=' ';
 	}
 	free(stack);
+	postfix[idx]='\0';
 	return postfix;
 }
 
