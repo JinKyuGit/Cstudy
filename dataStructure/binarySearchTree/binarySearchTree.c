@@ -253,9 +253,9 @@ Tree * DeleteData(Tree ** tree, Data target){
 
 		//만약 대체노드가 자식을 갖고있는 경우 처리.
 		if(NULL != GetRightSub(cTemp)){
-			ChangeLeftSub(pTemp, GetRightSub(cTemp));
+			ChangeRightSub(pTemp, GetRightSub(cTemp));
 		}else {
-			RemoveLeftSub(pTemp);
+			RemoveRightSub(pTemp);
 		}
 		
 		//삭제할 노드와 대체할 노드의 값 교환.
